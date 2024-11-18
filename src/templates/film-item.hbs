@@ -1,0 +1,10 @@
+{{#each this}}
+  <li class="films-item">
+    <hgroup class="film-name">
+      <h2>{{name}} <span class="film-type">{{type}}</span></h2>
+      <span>{{year}}</span>
+    </hgroup>
+    <p>{{priority}}</p>
+    <button data-index="{{@index}}" class="delete-btn">Delete</button>
+  </li>
+{{/each}}

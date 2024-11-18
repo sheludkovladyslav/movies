@@ -92,6 +92,8 @@ section {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  flex-basis: 35%;
+  max-width: 35%;
 }
 .film-type {
   font-size: 0.5em;
