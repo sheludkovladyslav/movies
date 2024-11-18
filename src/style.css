@@ -1,0 +1,111 @@
+/* Загальні стилі */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+input,
+button {
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+section {
+  padding: 50px 0;
+}
+
+.header {
+  padding: 25px 0;
+}
+.header-title {
+  color: #333;
+  text-align: center;
+}
+
+/* Стиль для форми */
+
+#film-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 300px;
+  max-width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-field {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+.form-field:focus {
+  border-color: #3498db;
+}
+
+.form-button {
+  background-color: #3498db;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+}
+
+.form-button:hover {
+  background-color: #2980b9;
+}
+
+/* Стиль для списку фільмів */
+.films-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  max-width: 80%;
+  margin: 0 auto;
+}
+.films-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.film-name {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.film-type {
+  font-size: 0.5em;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}

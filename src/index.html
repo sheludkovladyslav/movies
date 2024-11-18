@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Веб-додаток для студентів</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="header-title">Трекер фільмів</h1>
+    </header>
+    <main>
+      <section class="add-films">
+        <form id="film-form">
+          <input
+            class="form-field"
+            type="text"
+            id="title"
+            placeholder="Назва"
+            required
+          />
+          <select class="form-field" id="type">
+            <option value="movie">Фільм</option>
+            <option value="series">Серіал</option>
+          </select>
+          <input
+            class="form-field"
+            type="number"
+            id="year"
+            placeholder="Рік"
+            min="1900"
+            max="2100"
+            required
+          />
+          <select class="form-field" id="priority">
+            <option value="Переглянути вже">Переглянути в першу чергу</option>
+            <option value="Можна потім">На потім</option>
+          </select>
+          <button class="form-button" type="submit">Додати</button>
+        </form>
+      </section>
+      <section>
+        <ul class="films-list" id="films-list"></ul>
+      </section>
+    </main>
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
