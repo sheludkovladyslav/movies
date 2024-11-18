@@ -1,5 +1,5 @@
 {
-  "name": "node",
+  "name": "trecker-movies",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
