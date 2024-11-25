@@ -7,7 +7,7 @@ const PORT = "3000";
 
 const __dirname = path.resolve(fileURLToPath(import.meta.url));
 
-const filePath = path.join(__dirname, "../..", "public", "films.json");
+const filePath = path.join(__dirname, "../..", "public", "students.json");
 
 const readFile = () => {
   try {
@@ -21,9 +21,9 @@ const readFile = () => {
   }
 };
 
-const writeFile = (films) => {
+const writeFile = (students) => {
   try {
-    fs.writeFileSync(filePath, JSON.stringify(films, null, 2));
+    fs.writeFileSync(filePath, JSON.stringify(students, null, 2));
   } catch (error) {
     console.log("Виникла помилка при читанні файлу", error);
   }
@@ -38,43 +38,34 @@ const server = http.createServer((req, res) => {
     res.end();
     return;
   }
-  //Обробляємо запит на отримання фільмів
-  if (req.method === "GET" && req.url === "/films") {
-    const films = readFile();
+  if (req.method === "GET" && req.url === "/students") {
+    const students = readFile();
     res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(films));
-  }
-  //Обробляємо запит на додавання фільму до файлу films.json
-  else if (req.method === "POST" && req.url === "/films") {
+    res.end(JSON.stringify(students));
+  } else if (req.method === "POST" && req.url === "/students") {
     let body = "";
     req.on("data", (chunk) => (body += chunk));
     req.on("end", () => {
       try {
-        const newFilm = JSON.parse(body);
-        const films = readFile();
-        films.push(newFilm);
-        writeFile(films);
+        const newStudent = JSON.parse(body);
+        const students = readFile();
+        students.push(newStudent);
+        writeFile(students);
         res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ message: "Фільм додано успішно" }));
+        res.end(JSON.stringify({ message: "Студента успішно додано" }));
       } catch (error) {
         res.writeHead(400, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ message: "Помилка при додаванні фільму" }));
+        res.end(JSON.stringify({ message: "Помилка при додаванні студента" }));
       }
     });
-  }
-  //Обробляємо запит на видалення фільму з файлу films.json
-  else if (req.method === "DELETE" && req.url.startsWith("/films/")) {
-    // Перевіряємо чи ендоінт починається з "/films/" та чи використовується метод DELETE
+  } else if (req.method === "DELETE" && req.url.startsWith("/students/")) {
+    const index = parseInt(req.url.split("/")[2], 10);
 
-    const index = parseInt(req.url.split("/")[2], 10); // знаходимо індекс переданого фільму ()
-    //req.url.split("/"): розбиває URL запиту на масив частин. Наприклад, для запиту /films/3 отримаємо масив ["", "films", "3"].
-    //req.url.split("/")[2]: вибирає третю частину масиву (індекс фільму), що містить числове значення, яке вказує на позицію фільму в масиві.
+    const students = readFile();
 
-    const films = readFile(); //Беремо список фільмів з films.json
+    students.splice(index, 1);
 
-    films.splice(index, 1); // видаляємо фільм за його індексом
-
-    writeFile(films); // перезаписуємо файл films.json вже без видаленого фільму
+    writeFile(students);
 
     res.writeHead(200);
     res.end();

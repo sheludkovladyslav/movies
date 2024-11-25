@@ -1,0 +1,14 @@
+{{#each this}}
+  <tr class="students-item">
+    <td><hgroup class="student__name">
+        <h2>{{name}}
+          <span class="student__lastname">{{lastName}}</span><span
+            class="student__age"
+          >{{age}}</span></h2>
+      </hgroup>
+    </td>
+    <td class="student__faculty">{{faculty}}</td>
+    <td class="student__courses">{{#each this}} {{faculty}} {{/each}}</td>
+    <button data-index="{{@index}}" class="delete-btn">Delete</button>
+  </tr>
+{{/each}}

@@ -1,80 +1,92 @@
 import Handlebars from "handlebars";
-import filmTemplateSource from "bundle-text:./templates/film-item.hbs";
+import studentTemplateSource from "bundle-text:./templates/students.hbs";
 
-const renderFilms = (films) => {
-  const filmList = document.querySelector(".films-list");
-  const filmTemplate = Handlebars.compile(filmTemplateSource);
-  filmList.innerHTML = filmTemplate(films);
+const renderStudents = (students) => {
+  const studentsList = document.querySelector(".students-list");
+  const studentsTemplate = Handlebars.compile(studentTemplateSource);
+  studentsList.innerHTML = studentsTemplate(students);
 };
 
 const SERVER_URL = "http://localhost:3000";
 
-const loadFilms = () => {
+const loadStudents = () => {
   const request = new XMLHttpRequest();
-  request.open("GET", `${SERVER_URL}/films`, false);
+  request.open("GET", `${SERVER_URL}/../public/students.json`, false);
   request.send();
+  console.log(request.responseText); // Дивіться, що приходить від сервера
 
   if (request.status === 200) {
     try {
-      const films = JSON.parse(request.responseText);
-      renderFilms(films);
+      const students = JSON.parse(request.responseText);
+      renderStudents(students);
     } catch (error) {
-      console.error("Помилка при парсингу!");
+      console.error("Помилка при парсингу!", error);
       alert("Помилка при парсингу!");
     }
   } else {
-    alert("Не вдалося отримати фільми");
+    alert("Не вдалося отримати студентів");
   }
 };
 
-const addFilm = (film) => {
+const addStudent = (student) => {
   const request = new XMLHttpRequest();
-  request.open("POST", `${SERVER_URL}/films`, false);
+  request.open("POST", `${SERVER_URL}/students`, false);
   request.setRequestHeader("Content-Type", "application/json");
-  request.send(JSON.stringify(film));
+  request.send(JSON.stringify(student));
 
   if (request.status === 200) {
-    loadFilms();
+    loadStudents();
   } else {
-    alert("Не вдалося додати фільм");
+    alert("Не вдалося додати студента");
   }
 };
 
-//Відправлення запиту на видалення фільму за його індексом
-function deleteFilm(index) {
-  const request = new XMLHttpRequest(); // Створення об'єкту запиту
-  request.open("DELETE", `${SERVER_URL}/films/${index}`, false); // Синхронний запит з методом DELETE на ендпоінт http://localhost:3000/films/1
-  request.send(); // надсилання
+function deleteStudent(index) {
+  const request = new XMLHttpRequest();
+  request.open("DELETE", `${SERVER_URL}/students/${index}`, false);
+  request.send();
 
   if (request.status === 200) {
-    //Якщо успішний запит - викликаємо функцію loadFilms
-    loadFilms();
+    loadStudents();
   } else {
-    alert("Не вдалося видалити фільм.");
+    alert("Не вдалося видалити студента");
   }
 }
 
-document.querySelector("#film-form").addEventListener("submit", (event) => {
+document.querySelector("#student-form").addEventListener("submit", (event) => {
   event.preventDefault();
+  const courses = document.querySelector("#courses").value;
+  const name = document.querySelector("#name").value;
+  const lastName = document.querySelector("#lastName").value;
+  const age = parseInt(document.querySelector("#age").value);
+  const faculty = document.querySelector("#faculty").value;
 
-  const film = {
-    name: document.querySelector("#title").value,
-    year: parseInt(document.querySelector("#year").value),
-    type: document.querySelector("#type").value,
-    priority: document.querySelector("#priority").value,
-  };
-  addFilm(film);
-});
-
-const filmList = document.getElementById("films-list"); //Список фільмів
-
-// Додаємо обробник події на батьківський елемент
-filmList.addEventListener("click", (event) => {
-  // Перевіряємо, чи натиснута кнопка видалення
-  if (event.target.classList.contains("delete-btn")) {
-    const index = event.target.dataset.index; // Отримуємо індекс через data-атрибут
-    deleteFilm(index); // Викликаємо функцію для видалення фільму і передаємо їй індекс фільму
+  if (
+    name.length >= 3 &&
+    lastName.length >= 3 &&
+    faculty.length > 3 &&
+    courses.length > 3
+  ) {
+    const student = {
+      name: name.trim(),
+      lastName: lastName.trim(),
+      age: age,
+      faculty: faculty.trim(),
+      courses: courses.split(","),
+    };
+    addStudent(student);
+  } else {
+    alert("Введіть валідні дані!");
   }
 });
 
-loadFilms();
+const studentsList = document.getElementById("students-list");
+
+studentsList.addEventListener("click", (event) => {
+  if (event.target.classList.contains("delete-btn")) {
+    const index = event.target.dataset.index;
+    deleteStudent(index);
+  }
+});
+
+loadStudents();

@@ -8,41 +8,50 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <header class="header">
-      <h1 class="header-title">Трекер фільмів</h1>
-    </header>
     <main>
-      <section class="add-films">
-        <form id="film-form">
-          <input
-            class="form-field"
-            type="text"
-            id="title"
-            placeholder="Назва"
-            required
-          />
-          <select class="form-field" id="type">
-            <option value="movie">Фільм</option>
-            <option value="series">Серіал</option>
-          </select>
-          <input
-            class="form-field"
-            type="number"
-            id="year"
-            placeholder="Рік"
-            min="1900"
-            max="2100"
-            required
-          />
-          <select class="form-field" id="priority">
-            <option value="Переглянути вже">Переглянути в першу чергу</option>
-            <option value="Можна потім">На потім</option>
-          </select>
-          <button class="form-button" type="submit">Додати</button>
+      <section class="form-section">
+        <h2 class="form-section__title">Додати студента</h2>
+        <form id="student-form">
+          <div class="form-section__field">
+            <label for="name">Ім'я:</label>
+            <input type="text" id="name" required />
+          </div>
+          <div class="form-section__field">
+            <label for="lastName">Прізвище:</label>
+            <input type="text" id="lastName" required />
+          </div>
+          <div class="form-section__field">
+            <label for="age">Вік:</label>
+            <input type="number" id="age" required />
+          </div>
+          <div class="form-section__field">
+            <label for="faculty">Факультет:</label>
+            <input type="text" id="faculty" required />
+          </div>
+          <div class="form-section__field">
+            <label for="courses">Курси (через кому):</label>
+            <input type="text" id="courses" required />
+          </div>
+          <button type="submit">Додати</button>
         </form>
       </section>
       <section>
-        <ul class="films-list" id="films-list"></ul>
+        <ul class="students-list" id="students-list">
+          <h2 class="students-list__title">Список студентів</h2>
+          <table id="studentsTable">
+            <thead>
+              <tr>
+                <th>Ім'я</th>
+                <th>Прізвище</th>
+                <th>Вік</th>
+                <th>Факультет</th>
+                <th>Курси</th>
+                <th>Дії</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </ul>
       </section>
     </main>
     <script type="module" src="./index.js"></script>
