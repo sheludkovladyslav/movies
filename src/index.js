@@ -11,7 +11,7 @@ const SERVER_URL = "http://localhost:3000";
 
 const loadStudents = () => {
   const request = new XMLHttpRequest();
-  request.open("GET", `${SERVER_URL}/../public/students.json`, false);
+  request.open("GET", `${SERVER_URL}/students`, false);
   request.send();
   console.log(request.responseText); // Дивіться, що приходить від сервера
 
